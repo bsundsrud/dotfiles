@@ -1,0 +1,6 @@
+co = checkout
+l = log --pretty=format:'%C(yellow)%H%Creset%Cred%d%Creset%n%Cgreen%aN%Creset - %ar (%ai): %C(bold cyan)%s%Creset%w(0,0,4)%+b' --graph --topo-order
+c = commit
+s = status
+ds = diff --staged
+fpush = push --force-with-lease

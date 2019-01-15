@@ -1,0 +1,14 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+for f in $DIR/git/*; do
+    ty="$(basename "$f")"
+    echo "Processing git config section '$ty'"
+    entries="$(cat "$f")"
+    while read -r line; do
+          key="$(echo "$line" | cut -d= -f1 | xargs echo)"
+          value="$(echo -e $line | cut -d= -f2- | sed -e 's/^[[:space:]]*//')"
+          fullkey="${ty}.${key}"
+          echo "-- $key ($value)"
+          git config --global "$fullkey" "$value" 
+    done <<< "$entries"
+done

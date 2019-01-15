@@ -1,0 +1,3 @@
+for f in $DOTFILES_DIR/bash/*.sh; do
+    . "$f"
+done
