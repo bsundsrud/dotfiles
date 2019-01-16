@@ -42,3 +42,7 @@ else
 fi
 
 bash "$dotfiles_dir/gitconfig"
+
+echo "Installing bin dir..."
+mkdir -p "$HOME/bin"
+cp $dotfiles_dir/bin/* "$HOME/bin"
