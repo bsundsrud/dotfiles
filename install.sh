@@ -1,6 +1,8 @@
 #!/bin/bash
+set -euo pipefail
+
 dotfiles_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-bashrc_file="$1"
+bashrc_file="${1:-}"
 
 if [ -z "$bashrc_file" ]; then
     bashrc_file="$HOME/.bashrc"
@@ -45,4 +47,9 @@ bash "$dotfiles_dir/gitconfig"
 
 echo "Installing bin dir..."
 mkdir -p "$HOME/bin"
-cp $dotfiles_dir/bin/* "$HOME/bin"
+for f in $dotfiles_dir/bin/*; do
+    echo -n "  $(basename $f)..."
+    cp "$f" "$HOME/bin"
+    echo "done."
+done
+
