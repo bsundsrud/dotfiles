@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+usage() {
+    local errmsg="$1"
+    if [ -n "$errmsg" ]; then
+        echo "ERROR: $errmsg" 1>&2
+    fi
+    echo "kclist RESOURCE-TYPE [PATTERN]" 1>&2
+}
+
+RESOURCE="${1:-}"
+
+if [ -z "$RESOURCE" ]; then
+   usage "ERROR: Resource must be specified"
+    exit 1
+fi
+
+PATTERN="${2:-}"
+
+if [ -z "$PATTERN" ]; then
+    PATTERN='.*'
+fi
+
+kubectl get "$RESOURCE" -o json | jq -r '.items[].metadata.name' | grep "$PATTERN"
