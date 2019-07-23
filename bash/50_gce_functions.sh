@@ -1,4 +1,11 @@
 #!/bin/bash
+
+function k8s-status {
+    current_context=$(kubectl config current-context)
+    current_namespace=$(kubectl config view -o=jsonpath="{.contexts[?(@.name==\"${current_context}\")].context.namespace}")
+    printf "%s:%s\n" "${C_DGREEN}${current_context}${C_RESET}" "${C_DYELLOW}${current_namespace}${C_RESET}"
+}
+
 function context {
 
   GREEN=$(tput setaf 2)
