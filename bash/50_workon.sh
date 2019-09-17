@@ -67,14 +67,19 @@ function workon() {
         cd "$project_dir" || return 1
     }
     update_opt="0"
-    while getopts ":hu" o; do
-        case "${o}" in
-            u)
+    eval set -- "$(getopt -n workon -o "hu" -- "$@")"
+    while true ; do
+        case $1 in
+            -h)
+                usage
+                return 1
+                ;;
+            -u)
                 update_opt="1"
                 ;;
-            h)
-                usage
-                return 0
+            --)
+                shift
+                break
                 ;;
             *)
                 usage
