@@ -26,7 +26,7 @@ function context {
     fi
   done
 
-  echo 
+  echo
 }
 
 function ns {
@@ -49,7 +49,7 @@ function ns {
       printf "%s " $c
     fi
   done
-  
+
   echo
 }
 
@@ -104,3 +104,10 @@ if which kubectl > /dev/null 2>&1; then
     source <(kubectl completion bash)
 fi
 
+if [[ $(type -t compopt) = "builtin" ]]; then
+    complete -o default -F __start_kubectl kc
+    complete -o default -F __start_kubectl ky
+else
+    complete -o default -o nospace -F __start_kubectl kc
+    complete -o default -o nospace -F __start_kubectl ky
+fi
