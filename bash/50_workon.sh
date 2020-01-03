@@ -83,8 +83,13 @@ function workon() {
 function __workon_complete() {
     local cur="${COMP_WORDS[$COMP_CWORD]}"
     local completions
-    IFS=$'\n' completions=( $(compgen -W "$(find "$WORKON_PROJECT_HOME_DIR/" -maxdepth 2 -mindepth 2 -type d -printf '%P\n')" -- "$cur" ))
-    COMPREPLY=( "${completions[@]// /\ }" )
+    if [[ "${cur}" = "-" ]]; then
+        completions=( $(compgen -W "-u" -- "$cur") )
+        COMPREPLY=("${completions[@]}")
+    else
+        IFS=$'\n' completions=( $(compgen -W "$(find "$WORKON_PROJECT_HOME_DIR/" -maxdepth 2 -mindepth 2 -type d -printf '%P\n')" -- "$cur" ))
+        COMPREPLY=( "${completions[@]// /\ }" )
+    fi
 }
 
 complete -F __workon_complete workon
