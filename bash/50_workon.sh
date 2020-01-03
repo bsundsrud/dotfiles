@@ -83,7 +83,7 @@ function workon() {
 function __workon_complete() {
     local cur="${COMP_WORDS[$COMP_CWORD]}"
     local completions
-    if [[ "${cur}" = "-" ]]; then
+    if [[ "${cur:0:1}" = "-" ]]; then
         completions=( $(compgen -W "-u" -- "$cur") )
         COMPREPLY=("${completions[@]}")
     else
