@@ -25,7 +25,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='$(_prompt_return_code) ($(k8s-status)) ${debian_chroot:+($debian_chroot)}${C_LGREEN}\u${C_RESET}:${C_LBLUE}\w${C_RESET} $(_git_prompt_status)\n└─ \$ '
+    PS1='$(_prompt_return_code) ${debian_chroot:+($debian_chroot)}${C_LGREEN}\u${C_RESET}:${C_LBLUE}\w${C_RESET} $(_git_prompt_status)\n└─ \$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -39,5 +39,3 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
-

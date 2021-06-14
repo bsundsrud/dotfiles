@@ -102,12 +102,11 @@ EOF
 }
 if which kubectl > /dev/null 2>&1; then
     source <(kubectl completion bash)
-fi
-
-if [[ $(type -t compopt) = "builtin" ]]; then
-    complete -o default -F __start_kubectl kc
-    complete -o default -F __start_kubectl ky
-else
-    complete -o default -o nospace -F __start_kubectl kc
-    complete -o default -o nospace -F __start_kubectl ky
+    if [[ $(type -t compopt) = "builtin" ]]; then
+        complete -o default -F __start_kubectl kc
+        complete -o default -F __start_kubectl ky
+    else
+        complete -o default -o nospace -F __start_kubectl kc
+        complete -o default -o nospace -F __start_kubectl ky
+    fi
 fi
