@@ -1,0 +1,9 @@
+[Unit]
+Description=XCape Caps Lock Remap
+
+[Install]
+WantedBy=graphical.target
+
+[Service]
+ExecStart=/usr/bin/xcape -e '#66=Escape'
+Restart=always

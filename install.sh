@@ -22,7 +22,7 @@ replace() {
     tmpfile="$(mktemp)"
     newbashrc="$(mktemp)"
     echo "$payload" > "$tmpfile"
-    
+
     PAYLOAD="$tmpfile" awk '
     BEGIN       {p=1}
     /^### dotfiles start ###/   {print;system("cat $PAYLOAD");p=0}
@@ -53,3 +53,10 @@ for f in $dotfiles_dir/bin/*; do
     echo "done."
 done
 
+echo "Installing systemd user services"
+mkdir -p "$HOME/.config/systemd/user"
+for f in $dotfiles_dir/systemd/*; do
+    echo -n "  $(basename $f)..."
+    cp "$f" "$HOME/.config/systemd/user"
+    echo "done."
+done
